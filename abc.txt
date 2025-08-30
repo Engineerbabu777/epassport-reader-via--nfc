@@ -1,0 +1,36 @@
+          // try {
+          //   // Read file as base64
+          //   const base64Image = await FileSystem.readAsStringAsync(uri, {
+          //     encoding: FileSystem.EncodingType.Base64,
+          //   });
+
+          //   // Send directly to OCR.space API
+          //   let formData = new FormData();
+          //   formData.append(
+          //     "base64Image",
+          //     `data:image/jpeg;base64,${base64Image}`
+          //   );
+          //   formData.append("OCREngine", "2");
+
+          //   let res = await fetch("https://api.ocr.space/parse/image", {
+          //     method: "POST",
+          //     headers: {
+          //       apikey: "K82136255288957", // 🔑 get free key from https://ocr.space/ocrapi
+          //     },
+          //     body: formData,
+          //   });
+
+          //   let data = await res.json();
+          //   console.log("🔍 OCR Result:", data);
+
+          //   console.log({
+          //     data: data.ParsedResults?.[0]?.ParsedText,
+          //   });
+
+          //   // setOcrResult(
+          //   //   data.ParsedResults?.[0]?.ParsedText || "No text found"
+          //   // );
+          // } catch (err) {
+          //   console.error("OCR error:", err);
+          // }
+          // processMRZ(uri);

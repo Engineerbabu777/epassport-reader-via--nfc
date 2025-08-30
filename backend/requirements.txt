@@ -1,0 +1,5 @@
+flask==3.0.3
+python-dotenv==1.0.1
+opencv-python-headless==4.7.0.72
+numpy==1.26.4
+passporteye==2.2.2

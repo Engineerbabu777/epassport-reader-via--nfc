@@ -37,3 +37,7 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+server/google-vision-key.json
+server/node_modules
+backend/venv
