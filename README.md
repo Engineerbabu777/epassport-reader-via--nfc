@@ -1,50 +1,38 @@
-# Welcome to your Expo app 👋
+📱 ePassport NFC Reader
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile + backend solution for securely reading ePassport data over NFC.
+This project demonstrates how to use NFC-enabled smartphones to access biometric and personal information stored in an electronic passport’s chip (ICAO 9303 standard).
 
-## Get started
+✨ Features
 
-1. Install dependencies
+🔑 BAC (Basic Access Control) using MRZ data (passport number, DOB, expiry date)
 
-   ```bash
-   npm install
-   ```
+📖 Read DG1 (Personal Data) → Name, DOB, Document Number, Nationality
 
-2. Start the app
+🖼️ Read DG2 (Face Image) and decode to a displayable image
 
-   ```bash
-   npx expo start
-   ```
+🔒 Secure communication with the chip using NFC protocols
 
-In the output, you'll find options to open the app in a
+📲 Works with Android (NFC-enabled devices) and can be integrated with React Native / Expo frontends
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+🌐 Optional Flask backend for image processing and storage
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+🛠️ Tech Stack
 
-## Get a fresh project
+Frontend (Mobile) → React Native / Expo
 
-When you're ready, run:
+NFC Communication → Android NFC API / React Native NFC Manager
 
-```bash
-npm run reset-project
-```
+Backend (Optional) → Flask + OpenCV + Pillow
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+File Handling → Store images locally or send to backend for processing
 
-## Learn more
+🚀 Use Cases
 
-To learn more about developing your project with Expo, look at the following resources:
+Mobile KYC (Know Your Customer)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Border control and identity verification apps
 
-## Join the community
+Secure identity onboarding for banks, travel, and government services
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+⚠️ Disclaimer: This project is for educational and research purposes only. Always comply with local laws and regulations when accessing or processing identity documents.
