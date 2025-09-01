@@ -41,12 +41,18 @@ export default function MRZScanner() {
     );
   };
 
-  const formatMRZDate = (mrzDate: string) => {
+  const formatMRZDate = (
+    mrzDate: string,
+    force2000: boolean = false
+  ): string => {
     if (!mrzDate || mrzDate.length !== 6) return "";
+
     const yy = parseInt(mrzDate.slice(0, 2), 10);
     const mm = mrzDate.slice(2, 4);
     const dd = mrzDate.slice(4, 6);
-    const fullYear = yy >= 30 ? 1900 + yy : 2000 + yy; // MRZ logic
+
+    const fullYear = force2000 ? 2000 + yy : yy >= 30 ? 1900 + yy : 2000 + yy;
+
     return `${fullYear}-${mm}-${dd}`;
   };
 
@@ -80,8 +86,8 @@ export default function MRZScanner() {
         const parsed: any = {};
         for (const key in data.parsed) {
           let val = data.parsed[key]?.text ?? data.parsed[key];
-          if (key === "dateOfBirth" || key === "expiryDate")
-            val = formatMRZDate(val);
+          if (key === "date_of_expiry" || key === "date_of_birth")
+            val = formatMRZDate(val, key === "date_of_expiry");
           parsed[key] = val;
         }
         if (parsed.dateOfBirth) parsed.age = calculateAge(parsed.dateOfBirth);
@@ -101,10 +107,10 @@ export default function MRZScanner() {
 
   return (
     <LinearGradient
-      colors={["#2da49eff", "#ffa7c3ff"]}
+      colors={["#3bb8b1ff", "#eca1b9ff"]}
       style={styles.container}
     >
-      <StatusBar barStyle="light-content" backgroundColor="#2da49eff" />
+      <StatusBar barStyle="light-content" backgroundColor="#3bb8b1ff" />
 
       <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
         {/* Hero Section */}
@@ -141,7 +147,7 @@ export default function MRZScanner() {
         )}
 
         {/* Table for MRZ Data */}
-        {!loading && parsedData && (
+        {!loading && parsedData && false && (
           <View style={styles.tableContainer}>
             <Text style={styles.tableHeader}>Extracted MRZ Data</Text>
             <View style={styles.table}>
@@ -170,7 +176,18 @@ export default function MRZScanner() {
           </View>
         )}
 
-        <UsingReactNativeNfcPassportReaderPackage />
+        {!loading && parsedData?.date_of_birth && (
+          <>
+            <Text style={styles.heroDescription}>
+              Please click start reading and attach your passport with nfc
+              sensor.
+            </Text>
+          </>
+        )}
+
+        {!loading && parsedData?.date_of_birth && (
+          <UsingReactNativeNfcPassportReaderPackage data={parsedData} />
+        )}
       </ScrollView>
     </LinearGradient>
   );

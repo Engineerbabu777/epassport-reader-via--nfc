@@ -46,12 +46,15 @@ export default function UsingReactNativeNfcPassportReaderPackage({
   }, []);
 
   const startReading = () => {
+    const bacKey = {
+      documentNo: data?.document_number || "BN1572112",
+      expiryDate: data?.date_of_expiry || "2034-10-22",
+      birthDate: data?.date_of_birth || "1975-11-04",
+    };
+
+    console.log({ bacKey });
     NfcPassportReader.startReading({
-      bacKey: {
-        documentNo: "BN1572112",
-        expiryDate: "2034-10-22",
-        birthDate: "1975-11-04",
-      },
+      bacKey,
       includeImages: true,
     })
       .then(async (res) => {
