@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import * as FileSystem from "expo-file-system";
-import { StorageAccessFramework } from "expo-file-system";
 import * as React from "react";
 import {
   ActivityIndicator,
@@ -18,7 +16,7 @@ import NfcPassportReader, {
 } from "react-native-nfc-passport-reader";
 
 type Props = {
-  data: any;
+  data?: any;
 };
 export default function UsingReactNativeNfcPassportReaderPackage({
   data,
@@ -27,42 +25,6 @@ export default function UsingReactNativeNfcPassportReaderPackage({
   const [result, setResult] = React.useState<NfcResult | any>();
   const [tagDiscovered, setTagDiscovered] = React.useState<boolean>(false);
   const [loadingImage, setLoadingImage] = React.useState<boolean>(false);
-
-  async function saveBase64WithSAF(base64: string, filename = "myphoto.png") {
-    try {
-      // 1. Ask user to pick a directory (e.g. Downloads)
-      const permissions =
-        await StorageAccessFramework.requestDirectoryPermissionsAsync();
-
-      if (!permissions.granted) {
-        alert("Permission not granted");
-        return null;
-      }
-
-      const dirUri = permissions.directoryUri;
-
-      // 2. Create file in that directory
-      const fileUri = await StorageAccessFramework.createFileAsync(
-        dirUri,
-        filename,
-        "image/png" // or "image/jpeg" depending on your Base64
-      );
-
-      // 3. Write base64 into that file
-      await FileSystem.writeAsStringAsync(fileUri, base64, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-
-      console.log("✅ File saved:", fileUri);
-      alert(`Saved file at: ${fileUri}`);
-
-      return fileUri;
-    } catch (e: any) {
-      console.error("❌ Save failed:", e);
-      alert("Error saving file: " + e.message);
-      return null;
-    }
-  }
 
   // Usage:
   const [uri, setUri] = React.useState<string | null>(null);
