@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
+import { useRouter } from "expo-router";
 import {
   ActivityIndicator,
   Image,
@@ -21,6 +22,7 @@ type Props = {
 export default function UsingReactNativeNfcPassportReaderPackage({
   data,
 }: Props) {
+  const router = useRouter();
   console.log({ data });
   const [result, setResult] = React.useState<NfcResult | any>();
   const [tagDiscovered, setTagDiscovered] = React.useState<boolean>(false);
@@ -102,7 +104,7 @@ export default function UsingReactNativeNfcPassportReaderPackage({
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.buttonContainer}>
+        <View style={[styles.buttonContainer, result?.originalFacePhoto && styles.buttonContainerColumn]}>
           <TouchableOpacity onPress={startReading} style={styles.buttonPrimary}>
             <Text style={styles.buttonTextPrimary}>Start Reading</Text>
           </TouchableOpacity>
@@ -112,6 +114,19 @@ export default function UsingReactNativeNfcPassportReaderPackage({
           >
             <Text style={styles.buttonTextSecondary}>Stop Reading</Text>
           </TouchableOpacity>
+          {result?.originalFacePhoto && (
+            <TouchableOpacity
+              onPress={() => {
+                router.push({
+                  pathname: "/verification",
+                  params: { passportPhoto: result.originalFacePhoto },
+                });
+              }}
+              style={styles.buttonVerify}
+            >
+              <Text style={styles.buttonTextVerify}>Verify Liveness</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.resultBox}>
@@ -170,6 +185,9 @@ const styles = StyleSheet.create({
     gap: 16,
     marginBottom: 20,
   },
+  buttonContainerColumn: {
+    flexDirection: "column",
+  },
   buttonPrimary: {
     flex: 1,
     backgroundColor: "#4CAF50",
@@ -198,6 +216,23 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonTextSecondary: {
+    color: "#fff",
+    fontWeight: "600",
+    fontSize: 16,
+  },
+  buttonVerify: {
+    flex: 1,
+    backgroundColor: "#2196F3",
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+    marginTop: 16,
+  },
+  buttonTextVerify: {
     color: "#fff",
     fontWeight: "600",
     fontSize: 16,

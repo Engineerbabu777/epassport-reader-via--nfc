@@ -1,4 +1,5 @@
 import UsingReactNativeNfcPassportReaderPackage from "@/components/react-native-passport-reader";
+import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -16,6 +17,7 @@ import { launchCamera } from "react-native-image-picker";
 import LinearGradient from "react-native-linear-gradient";
 
 export default function MRZScanner() {
+  const router = useRouter();
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [parsedData, setParsedData] = useState<any>(null);
@@ -131,6 +133,16 @@ export default function MRZScanner() {
           <Text style={styles.scanButtonText}>Scan MRZ</Text>
         </TouchableOpacity>
 
+        {/* Verify Liveness Button */}
+        <TouchableOpacity
+          style={styles.verifyButton}
+          onPress={() => {
+            router.push("/verification");
+          }}
+        >
+          <Text style={styles.verifyButtonText}>Verify Liveness</Text>
+        </TouchableOpacity>
+
         {/* Image Preview */}
         {imageUri && (
           <View style={styles.imageContainer}>
@@ -235,6 +247,20 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   scanButtonText: { color: "#fff", fontWeight: "bold", fontSize: 18 },
+  verifyButton: {
+    marginHorizontal: 20,
+    marginTop: 15,
+    backgroundColor: "#2196F3",
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    shadowColor: "#2196F3",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  verifyButtonText: { color: "#fff", fontWeight: "bold", fontSize: 18 },
   imageContainer: {
     marginTop: 20,
     marginHorizontal: 20,
